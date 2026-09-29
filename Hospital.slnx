@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="aplicaciones_lib/aplicaciones_lib.csproj" />
+  <Project Path="presentacion_csn/presentacion_csn.csproj" />
+  <Project Path="presentacion_mst/presentacion_mst.csproj" />
+  <Project Path="servicios_asp/servicios_asp.csproj" />
+</Solution>
