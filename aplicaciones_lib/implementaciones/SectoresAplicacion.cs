@@ -15,7 +15,7 @@ namespace aplicaciones_lib.implementaciones
 
         public Sectores Actualizar(Sectores entidad)
         {
-            // Hacer calculo o operaciones
+            
 
             var entry = this.conexion!.Entry<Sectores>(entidad);
             entry.State = EntityState.Modified;
@@ -25,7 +25,7 @@ namespace aplicaciones_lib.implementaciones
 
         public Sectores Borrar(Sectores entidad)
         {
-            // Hacer calculo o operaciones
+            
 
             this.conexion.Sectores!.Remove(entidad!);
             this.conexion.SaveChanges();
@@ -39,7 +39,7 @@ namespace aplicaciones_lib.implementaciones
 
         public Sectores Insertar(Sectores entidad)
         {
-            // Hacer calculo o operaciones
+            
 
             this.conexion.Sectores!.Add(entidad!);
             this.conexion.SaveChanges();
