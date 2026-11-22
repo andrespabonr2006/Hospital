@@ -5,8 +5,9 @@ namespace aplicaciones_lib.interfaces
     public interface ICitasAplicacion
     {
         Citas Insertar(Citas entidad);
-        List<Citas> Consultar();
         Citas Actualizar(Citas entidad);
+        List<Citas> Consultar();
+        List<Citas> Buscar(Citas entidad);
         Citas Borrar(Citas entidad);
     }
 }

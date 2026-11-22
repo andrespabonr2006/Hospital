@@ -5,8 +5,9 @@ namespace aplicaciones_lib.interfaces
     public interface ISolicitudesAplicacion
     {
         Solicitudes Insertar(Solicitudes entidad);
-        List<Solicitudes> Consultar();
         Solicitudes Actualizar(Solicitudes entidad);
+        List<Solicitudes> Consultar();
+        List<Solicitudes> Buscar(Solicitudes entidad);
         Solicitudes Borrar(Solicitudes entidad);
     }
 }

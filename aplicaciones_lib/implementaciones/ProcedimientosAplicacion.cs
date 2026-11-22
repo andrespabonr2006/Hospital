@@ -15,7 +15,13 @@ namespace aplicaciones_lib.implementaciones
 
         public Procedimientos Actualizar(Procedimientos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
+
+            ValidarRelaciones(entidad);
 
             var entry = this.conexion!.Entry<Procedimientos>(entidad);
             entry.State = EntityState.Modified;
@@ -25,25 +31,55 @@ namespace aplicaciones_lib.implementaciones
 
         public Procedimientos Borrar(Procedimientos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Procedimientos!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
 
+        public List<Procedimientos> Buscar(Procedimientos entidad)
+        {
+            return this.conexion.Procedimientos!
+                .Where(x => x.Proceso!.Contains(entidad.Proceso!))
+                .Include(x => x._Examen)
+                .ToList();
+        }
+
         public List<Procedimientos> Consultar()
         {
-            return this.conexion.Procedimientos!.ToList();
+            return this.conexion.Procedimientos!
+                .Include(x => x._Examen)
+                .Take(5).ToList();
         }
 
         public Procedimientos Insertar(Procedimientos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
+
+            ValidarRelaciones(entidad);
 
             this.conexion.Procedimientos!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+
+        private bool Validar(Procedimientos entidad)
+        {
+            return string.IsNullOrEmpty(entidad.Proceso) ||
+                string.IsNullOrEmpty(entidad.Duracion) ||
+                entidad.Examen <= 0;
+        }
+
+        private void ValidarRelaciones(Procedimientos entidad)
+        {
+            if (!this.conexion.Examenes!.Any(x => x.Id == entidad.Examen))
+                throw new Exception("No existe Examen con Id " + entidad.Examen);
         }
     }
 }

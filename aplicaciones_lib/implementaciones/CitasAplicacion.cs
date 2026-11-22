@@ -15,7 +15,13 @@ namespace aplicaciones_lib.implementaciones
 
         public Citas Actualizar(Citas entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
+
+            ValidarRelaciones(entidad);
 
             var entry = this.conexion!.Entry<Citas>(entidad);
             entry.State = EntityState.Modified;
@@ -25,25 +31,59 @@ namespace aplicaciones_lib.implementaciones
 
         public Citas Borrar(Citas entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Citas!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
 
+        public List<Citas> Buscar(Citas entidad)
+        {
+            return this.conexion.Citas!
+                .Where(x => x.Estado!.Contains(entidad.Estado!))
+                .Include(x => x._Solicitud).Include(x => x._Paciente)
+                .ToList();
+        }
+
         public List<Citas> Consultar()
         {
-            return this.conexion.Citas!.ToList();
+            return this.conexion.Citas!
+                .Include(x => x._Solicitud).Include(x => x._Paciente)
+                .Take(5).ToList();
         }
 
         public Citas Insertar(Citas entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
+
+            ValidarRelaciones(entidad);
 
             this.conexion.Citas!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+
+        private bool Validar(Citas entidad)
+        {
+            return entidad.Fecha == null ||
+                string.IsNullOrEmpty(entidad.Estado) ||
+                entidad.Solicitud <= 0 ||
+                entidad.Paciente <= 0;
+        }
+
+        private void ValidarRelaciones(Citas entidad)
+        {
+            if (!this.conexion.Solicitudes!.Any(x => x.Id == entidad.Solicitud))
+                throw new Exception("No existe Solicitud con Id " + entidad.Solicitud);
+
+            if (!this.conexion.Pacientes!.Any(x => x.Id == entidad.Paciente))
+                throw new Exception("No existe Paciente con Id " + entidad.Paciente);
         }
     }
 }

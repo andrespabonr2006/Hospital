@@ -5,8 +5,10 @@ namespace aplicaciones_lib.interfaces
     public interface ISegurosAplicacion
     {
         Seguros Insertar(Seguros entidad);
-        List<Seguros> Consultar();
         Seguros Actualizar(Seguros entidad);
+        List<Seguros> Consultar();
+        List<Seguros> Buscar(Seguros entidad);
         Seguros Borrar(Seguros entidad);
     }
 }
+

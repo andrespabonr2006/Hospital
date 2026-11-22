@@ -5,8 +5,10 @@ namespace aplicaciones_lib.interfaces
     public interface IExamenesAplicacion
     {
         Examenes Insertar(Examenes entidad);
-        List<Examenes> Consultar();
         Examenes Actualizar(Examenes entidad);
+        List<Examenes> Consultar();
+        List<Examenes> Buscar(Examenes entidad);
         Examenes Borrar(Examenes entidad);
     }
 }
+
