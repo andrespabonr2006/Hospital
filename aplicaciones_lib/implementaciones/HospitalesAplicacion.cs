@@ -15,7 +15,11 @@ namespace aplicaciones_lib.implementaciones
 
         public Hospitales Actualizar(Hospitales entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             var entry = this.conexion!.Entry<Hospitales>(entidad);
             entry.State = EntityState.Modified;
@@ -25,25 +29,45 @@ namespace aplicaciones_lib.implementaciones
 
         public Hospitales Borrar(Hospitales entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Hospitales!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
 
+        public List<Hospitales> Buscar(Hospitales entidad)
+        {
+            return this.conexion.Hospitales!
+                .Where(x => x.Nombre!.Contains(entidad.Nombre!))
+                .ToList();
+        }
+
         public List<Hospitales> Consultar()
         {
-            return this.conexion.Hospitales!.ToList();
+            return this.conexion.Hospitales!.Take(5).ToList();
         }
 
         public Hospitales Insertar(Hospitales entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
 
             this.conexion.Hospitales!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+
+        private bool Validar(Hospitales entidad)
+        {
+            return string.IsNullOrEmpty(entidad.Nombre) ||
+                string.IsNullOrEmpty(entidad.Direccion) ||
+                string.IsNullOrEmpty(entidad.Telefono) ||
+                string.IsNullOrEmpty(entidad.Correo);
         }
     }
 }

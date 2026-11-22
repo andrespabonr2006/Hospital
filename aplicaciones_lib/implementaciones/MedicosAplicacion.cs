@@ -15,7 +15,13 @@ namespace aplicaciones_lib.implementaciones
 
         public Medicos Actualizar(Medicos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
+
+            ValidarRelaciones(entidad);
 
             var entry = this.conexion!.Entry<Medicos>(entidad);
             entry.State = EntityState.Modified;
@@ -25,25 +31,56 @@ namespace aplicaciones_lib.implementaciones
 
         public Medicos Borrar(Medicos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id == 0)
+                throw new Exception("No se ha guardo");
 
             this.conexion.Medicos!.Remove(entidad!);
             this.conexion.SaveChanges();
             return entidad;
         }
 
+        public List<Medicos> Buscar(Medicos entidad)
+        {
+            return this.conexion.Medicos!
+                .Where(x => x.Nombre!.Contains(entidad.Nombre!))
+                .Include(x => x._Sector)
+                .ToList();
+        }
+
         public List<Medicos> Consultar()
         {
-            return this.conexion.Medicos!.ToList();
+            return this.conexion.Medicos!
+                .Include(x => x._Sector)
+                .Take(5).ToList();
         }
 
         public Medicos Insertar(Medicos entidad)
         {
-            // Hacer calculo o operaciones
+            if (entidad.Id != 0)
+                throw new Exception("Ya se guardo");
+
+            if (Validar(entidad))
+                throw new Exception("Falta informacion");
+
+            ValidarRelaciones(entidad);
 
             this.conexion.Medicos!.Add(entidad!);
             this.conexion.SaveChanges();
             return entidad;
+        }
+
+        private bool Validar(Medicos entidad)
+        {
+            return string.IsNullOrEmpty(entidad.Nombre) ||
+                string.IsNullOrEmpty(entidad.Especialidad) ||
+                string.IsNullOrEmpty(entidad.Telefono) ||
+                entidad.Sector <= 0;
+        }
+
+        private void ValidarRelaciones(Medicos entidad)
+        {
+            if (!this.conexion.Sectores!.Any(x => x.Id == entidad.Sector))
+                throw new Exception("No existe Sector con Id " + entidad.Sector);
         }
     }
 }

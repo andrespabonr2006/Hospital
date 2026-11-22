@@ -5,8 +5,9 @@ namespace aplicaciones_lib.interfaces
     public interface ITurnosAplicacion
     {
         Turnos Insertar(Turnos entidad);
-        List<Turnos> Consultar();
         Turnos Actualizar(Turnos entidad);
+        List<Turnos> Consultar();
+        List<Turnos> Buscar(Turnos entidad);
         Turnos Borrar(Turnos entidad);
     }
 }

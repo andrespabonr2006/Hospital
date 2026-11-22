@@ -5,8 +5,10 @@ namespace aplicaciones_lib.interfaces
     public interface IMedicosAplicacion
     {
         Medicos Insertar(Medicos entidad);
-        List<Medicos> Consultar();
         Medicos Actualizar(Medicos entidad);
+        List<Medicos> Consultar();
+        List<Medicos> Buscar(Medicos entidad);
         Medicos Borrar(Medicos entidad);
     }
 }
+
