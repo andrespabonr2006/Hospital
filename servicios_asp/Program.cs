@@ -1,17 +1,35 @@
+using aplicaciones_lib.implementaciones;
+using aplicaciones_lib.interfaces;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-
 builder.Services.AddControllers();
+builder.Services.AddScoped<IConexion, Conexion>();
+builder.Services.AddScoped<IHospitalesAplicacion, HospitalesAplicacion>();
+builder.Services.AddScoped<IPacientesAplicacion, PacientesAplicacion>();
+builder.Services.AddScoped<ISectoresAplicacion, SectoresAplicacion>();
+builder.Services.AddScoped<IMedicosAplicacion, MedicosAplicacion>();
+builder.Services.AddScoped<ITurnosAplicacion, TurnosAplicacion>();
+builder.Services.AddScoped<IConsultoriosAplicacion, ConsultoriosAplicacion>();
+builder.Services.AddScoped<IHabitacionesAplicacion, HabitacionesAplicacion>();
+builder.Services.AddScoped<IHistorialesAplicacion, HistorialesAplicacion>();
+builder.Services.AddScoped<ISolicitudesAplicacion, SolicitudesAplicacion>();
+builder.Services.AddScoped<ISegurosAplicacion, SegurosAplicacion>();
+builder.Services.AddScoped<ICitasAplicacion, CitasAplicacion>();
+builder.Services.AddScoped<IConsultasAplicacion, ConsultasAplicacion>();
+builder.Services.AddScoped<IEnfermedadesAplicacion, EnfermedadesAplicacion>();
+builder.Services.AddScoped<IFormulasAplicacion, FormulasAplicacion>();
+builder.Services.AddScoped<IExamenesAplicacion, ExamenesAplicacion>();
+builder.Services.AddScoped<IProcedimientosAplicacion, ProcedimientosAplicacion>();
+builder.Services.AddScoped<IMedicamentosAplicacion, MedicamentosAplicacion>();
+builder.Services.AddScoped<IAdministrativosAplicacion, AdministrativosAplicacion>();
+builder.Services.AddScoped<IFacturasAplicacion, FacturasAplicacion>();
+builder.Services.AddScoped<IPagosAplicacion, PagosAplicacion>();
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-
 app.UseHttpsRedirection();
-
 app.UseAuthorization();
-
 app.MapControllers();
-
+app.MapGet("/", () => "");
 app.Run();

@@ -15,7 +15,6 @@ namespace presentacion_mst
         public SolicitudesPruebas()
         {
             this.conexion = new Conexion();
-            this.conexion.StringConexion = Datosgenerales.ObtenerStringConexion();
         }
 
         [TestMethod]

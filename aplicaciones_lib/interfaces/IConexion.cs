@@ -6,8 +6,6 @@ namespace aplicaciones_lib.interfaces
 {
     public interface IConexion
     {
-        string? StringConexion { get; set; }
-
         DbSet<Hospitales>? Hospitales { get; set; }
         DbSet<Pacientes>? Pacientes { get; set; }
         DbSet<Sectores>? Sectores { get; set; }

@@ -1,16 +1,15 @@
 ﻿using aplicaciones_lib.entidades;
 using aplicaciones_lib.interfaces;
+using aplicaciones_lib.nucleo;
 using Microsoft.EntityFrameworkCore;
 
 namespace aplicaciones_lib.implementaciones
 {
     public class Conexion : DbContext, IConexion
     {
-        public string? StringConexion { get; set; }
-
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer(this.StringConexion!, p => { });
+            optionsBuilder.UseSqlServer(Datosgenerales.ObtenerStringConexion()!, p => { });
             optionsBuilder.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
         }
 

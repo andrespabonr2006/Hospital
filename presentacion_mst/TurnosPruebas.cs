@@ -15,7 +15,6 @@ namespace presentacion_mst
         public TurnosPruebas()
         {
             this.conexion = new Conexion();
-            this.conexion.StringConexion = Datosgenerales.ObtenerStringConexion();
         }
 
         [TestMethod]
