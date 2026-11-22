@@ -9,6 +9,7 @@ namespace aplicaciones_lib.entidades
         public string? Especialidad { get; set; }
         public string? Telefono { get; set; }
         public int Sector { get; set; }
+        public string? Imagen { get; set; }
 
         [ForeignKey("Sector")] public Sectores? _Sector { get; set; }
     }

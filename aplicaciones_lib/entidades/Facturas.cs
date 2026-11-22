@@ -5,7 +5,7 @@ namespace aplicaciones_lib.entidades
     public class Facturas
     {
         public int Id { get; set; }
-        public DateTime FechaEmision { get; set; }
+        public DateTime? FechaEmision { get; set; }
         public decimal Subtotal { get; set; }
         public decimal Impuesto { get; set; }
         public int Medicamento { get; set; }
