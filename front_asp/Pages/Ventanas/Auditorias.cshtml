@@ -1,0 +1,54 @@
+﻿@page
+@model AuditoriasModel
+@{
+    ViewData["Title"] = "Auditorias";
+}
+<form method="post">
+
+    <div class="text-center">
+        <h1 class="display-4">Auditorías</h1>
+        <p>Últimos cambios hechos en el sistema (insertar, actualizar y borrar).</p>
+        <div>
+            <input type="submit"
+                   value="Consultar"
+                   class="btn btn-secondary"
+                   asp-page-handler="BtConsultar" />
+            <input id="flEntidad"
+                   placeholder="Entidad (ej: Medicos)"
+                   asp-for="@Model.Filtro!.Entidad" />
+        </div>
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+
+        <br />
+        <br />
+        <div class="containers_vn panel panel-default">
+            <table class="tb_data table table-striped table-bordered table-hover">
+                <tr>
+                    <th>Id</th>
+                    <th>Fecha</th>
+                    <th>Entidad</th>
+                    <th>Operación</th>
+                    <th>Id del registro</th>
+                </tr>
+                @if (Model != null && Model.Lista != null)
+                {
+                    foreach (var elemento in Model.Lista)
+                    {
+                        <tr>
+                            <td>@elemento.Id</td>
+                            <td>@elemento.Fecha</td>
+                            <td>@elemento.Entidad</td>
+                            <td>@elemento.Operacion</td>
+                            <td>@elemento.Registro</td>
+                        </tr>
+                    }
+                }
+            </table>
+        </div>
+    </div>
+</form>
