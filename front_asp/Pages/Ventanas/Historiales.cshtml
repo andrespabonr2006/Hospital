@@ -1,0 +1,136 @@
+﻿@page
+@model HistorialesModel
+@{
+    ViewData["Title"] = "Historiales";
+}
+<form method="post"
+      enctype="multipart/form-data">
+
+    <div class="text-center">
+        <h1 class="display-4">Historiales</h1>
+        <div>
+            <input type="submit"
+                   value="Consultar"
+                   class="btn btn-secondary"
+                   asp-page-handler="BtConsultar" />
+            <input type="submit"
+                   value="Nuevo"
+                   class="btn btn-secondary"
+                   asp-page-handler="BtNuevo" />
+            <input type="submit"
+                   value="Guardar"
+                   class="btn btn-secondary"
+                   asp-page-handler="BtGuardar" />
+            <input id="flAntecedente"
+                   placeholder="Antecedente"
+                   asp-for="@Model.Filtro!.Antecedente" />
+        </div>
+
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            @await Html.PartialAsync("../Emergentes/Mensajes.cshtml")
+            ;
+        }
+
+        @if (Model.Formulario || Model.Borrar)
+        {
+            <input type="hidden"
+                   asp-for="@Model.Actual!.Id" />
+        }
+
+        @if (Model.Formulario)
+        {
+            <div>
+                <h3>Historial</h3>
+
+                <label>
+                    FechaApertura
+                </label>
+                <input id="nmFechaApertura"
+                       asp-for="@Model.Actual!.FechaApertura" />
+                <br />
+
+                <label>
+                    Antecedente
+                </label>
+                <input id="nmAntecedente"
+                       asp-for="@Model.Actual!.Antecedente" />
+                <br />
+
+                <label>
+                    Paciente
+                </label>
+                <select id="nmPaciente"
+                        asp-for="@Model.Actual!.Paciente"
+                        asp-items="@(new SelectList(Model.Pacientes, "Id", "Nombre"))">
+                </select>
+            </div>
+        }
+
+        @if (Model.Borrar)
+        {
+            <div class="popup">
+                <div class="pp_del_inner">
+                    <h3>
+                        Mensaje
+                    </h3>
+
+                    <h4>
+                        ¿Quiere borrar el registro con información
+                        @Model.Actual!.Antecedente?
+                    </h4>
+                    <input type="submit"
+                           value="Cancelar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtConsultar" />
+                    <input type="submit"
+                           value="Borrar"
+                           class="btn btn-secondary"
+                           asp-page-handler="BtBorrar" />
+                </div>
+            </div>
+        }
+
+        @if (!Model.Formulario)
+        {
+            <br />
+            <br />
+            <div class="containers_vn panel panel-default">
+                <table class="tb_data table table-striped table-bordered table-hover">
+                    <tr>
+                        <th>Id</th>
+                        <th>FechaApertura</th>
+                        <th>Antecedente</th>
+                        <th>Paciente</th>
+                        <th>Acción</th>
+                    </tr>
+                    @if (Model != null && Model.Lista != null)
+                    {
+                        foreach (var elemento in Model.Lista)
+                        {
+                            <tr>
+                                <td>@elemento.Id</td>
+                                <td>@elemento.FechaApertura</td>
+                                <td>@elemento.Antecedente</td>
+                                <td>@elemento._Paciente!.Nombre</td>
+                                <td>
+                                    <input type="submit"
+                                           value="Editar"
+                                           class="btn btn-secondary"
+                                           asp-page-handler="BtEditar"
+                                           asp-route-data="@elemento.Id" />
+                                    <input type="submit"
+                                           value="Borrar"
+                                           class="btn btn-secondary"
+                                           asp-page-handler="BtPregBorrar"
+                                           asp-route-data="@elemento.Id" />
+                                </td>
+                            </tr>
+                        }
+                    }
+                </table>
+            </div>
+        }
+
+    </div>
+</form>
