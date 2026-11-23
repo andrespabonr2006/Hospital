@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using front_asp.Nucleo
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -29,29 +30,107 @@
                             <a class="nav-link dropdown-toggle text-white" href="#" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">Ventanas</a>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Hospitales">Hospitales</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Pacientes">Pacientes</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Sectores">Sectores</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Medicos">Medicos</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Turnos">Turnos</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Consultorios">Consultorios</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Habitaciones">Habitaciones</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Historiales">Historiales</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Solicitudes">Solicitudes</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Seguros">Seguros</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Citas">Citas</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Consultas">Consultas</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Enfermedades">Enfermedades</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Formulas">Formulas</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Examenes">Examenes</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Procedimientos">Procedimientos</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Medicamentos">Medicamentos</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Administrativos">Administrativos</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Facturas">Facturas</a></li>
-                                <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Pagos">Pagos</a></li>
+                                @if (Seguridad.TienePermiso(Context, "Hospitales"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Hospitales">Hospitales</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Pacientes"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Pacientes">Pacientes</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Sectores"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Sectores">Sectores</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Medicos"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Medicos">Medicos</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Turnos"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Turnos">Turnos</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Consultorios"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Consultorios">Consultorios</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Habitaciones"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Habitaciones">Habitaciones</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Historiales"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Historiales">Historiales</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Solicitudes"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Solicitudes">Solicitudes</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Seguros"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Seguros">Seguros</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Citas"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Citas">Citas</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Consultas"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Consultas">Consultas</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Enfermedades"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Enfermedades">Enfermedades</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Formulas"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Formulas">Formulas</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Examenes"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Examenes">Examenes</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Procedimientos"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Procedimientos">Procedimientos</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Medicamentos"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Medicamentos">Medicamentos</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Administrativos"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Administrativos">Administrativos</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Facturas"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Facturas">Facturas</a></li>
+                                }
+                                @if (Seguridad.TienePermiso(Context, "Pagos"))
+                                {
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Pagos">Pagos</a></li>
+                                }
                             </ul>
                         </li>
+                        @if (Seguridad.EsAdministrador(Context))
+                        {
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-white" href="#" role="button"
+                                   data-bs-toggle="dropdown" aria-expanded="false">Seguridad</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Usuarios">Usuarios</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Roles">Roles</a></li>
+                                    <li><a class="dropdown-item" asp-area="" asp-page="/Ventanas/Permisos">Permisos</a></li>
+                                </ul>
+                            </li>
+                        }
                     </ul>
+                    @if (Seguridad.EstaLogueado(Context))
+                    {
+                        <span class="navbar-text text-white usuario-nav">
+                            @Context.Session.GetString("Usuario") (@Context.Session.GetString("Rol"))
+                        </span>
+                    }
                 </div>
             </div>
         </nav>

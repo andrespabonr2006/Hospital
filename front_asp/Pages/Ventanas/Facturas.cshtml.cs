@@ -1,6 +1,7 @@
 using aplicaciones_lib.entidades;
 using aplicaciones_lib.interfaces;
 using aplicaciones_lib.nucleo;
+using front_asp.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 
@@ -40,8 +41,8 @@ namespace front_asp.Pages.Ventanas
         {
             try
             {
-                var variable_session = HttpContext.Session.GetString("Usuario");
-                if (String.IsNullOrEmpty(variable_session))
+                // Solo entra si inicio sesion y su rol tiene permiso para esta ventana
+                if (!Seguridad.TienePermiso(HttpContext, "Facturas"))
                 {
                     HttpContext.Response.Redirect("/");
                     return;
