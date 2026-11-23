@@ -25,6 +25,9 @@ builder.Services.AddScoped<IMedicamentosAplicacion, MedicamentosAplicacion>();
 builder.Services.AddScoped<IAdministrativosAplicacion, AdministrativosAplicacion>();
 builder.Services.AddScoped<IFacturasAplicacion, FacturasAplicacion>();
 builder.Services.AddScoped<IPagosAplicacion, PagosAplicacion>();
+builder.Services.AddScoped<IRolesAplicacion, RolesAplicacion>();
+builder.Services.AddScoped<IUsuariosAplicacion, UsuariosAplicacion>();
+builder.Services.AddScoped<IPermisosAplicacion, PermisosAplicacion>();
 
 var app = builder.Build();
 
