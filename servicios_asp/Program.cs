@@ -3,7 +3,11 @@ using aplicaciones_lib.interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
+builder.Services.AddControllers().AddJsonOptions(opciones =>
+{
+    opciones.JsonSerializerOptions.Encoder =
+        System.Text.Encodings.Web.JavaScriptEncoder.UnsafeRelaxedJsonEscaping;
+});
 builder.Services.AddScoped<IConexion, Conexion>();
 builder.Services.AddScoped<IHospitalesAplicacion, HospitalesAplicacion>();
 builder.Services.AddScoped<IPacientesAplicacion, PacientesAplicacion>();
@@ -28,6 +32,7 @@ builder.Services.AddScoped<IPagosAplicacion, PagosAplicacion>();
 builder.Services.AddScoped<IRolesAplicacion, RolesAplicacion>();
 builder.Services.AddScoped<IUsuariosAplicacion, UsuariosAplicacion>();
 builder.Services.AddScoped<IPermisosAplicacion, PermisosAplicacion>();
+builder.Services.AddScoped<IAuditoriasAplicacion, AuditoriasAplicacion>();
 
 var app = builder.Build();
 
