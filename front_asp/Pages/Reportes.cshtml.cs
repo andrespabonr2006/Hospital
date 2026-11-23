@@ -5,6 +5,7 @@ using ClosedXML.Excel;
 using front_asp.Nucleo;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using QuestPDF.Fluent;
 
 namespace front_asp.Pages
 {
@@ -56,6 +57,60 @@ namespace front_asp.Pages
                 return File(memoria.ToArray(),
                     "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
                     "Pacientes.xlsx");
+            }
+            catch (Exception ex)
+            {
+                LogConversor.Log(ex, ViewData!);
+                return Page();
+            }
+        }
+
+        // Genera un archivo PDF con la lista de pacientes
+        public IActionResult OnPostPdf()
+        {
+            try
+            {
+                var lista = this.IPacientesPresentacion.Buscar(new Pacientes() { Nombre = "" });
+
+                var pdf = Document.Create(documento =>
+                {
+                    documento.Page(pagina =>
+                    {
+                        pagina.Margin(30);
+
+                        // Titulo arriba de la hoja
+                        pagina.Header().Text("Reporte de Pacientes").FontSize(20).Bold();
+
+                        // Tabla con 4 columnas
+                        pagina.Content().Table(tabla =>
+                        {
+                            tabla.ColumnsDefinition(columnas =>
+                            {
+                                columnas.ConstantColumn(40);
+                                columnas.RelativeColumn();
+                                columnas.RelativeColumn();
+                                columnas.RelativeColumn();
+                            });
+
+                            // Fila de titulos
+                            tabla.Cell().Text("Id").Bold();
+                            tabla.Cell().Text("Nombre").Bold();
+                            tabla.Cell().Text("Telefono").Bold();
+                            tabla.Cell().Text("Direccion").Bold();
+
+                            // Un paciente por fila
+                            foreach (var x in lista)
+                            {
+                                tabla.Cell().Text(x.Id.ToString());
+                                tabla.Cell().Text(x.Nombre ?? "");
+                                tabla.Cell().Text(x.Telefono ?? "");
+                                tabla.Cell().Text(x.Direccion ?? "");
+                            }
+                        });
+                    });
+                }).GeneratePdf();
+
+                return File(pdf, "application/pdf", "Pacientes.pdf");
             }
             catch (Exception ex)
             {

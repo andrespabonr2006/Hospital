@@ -3,6 +3,9 @@ using aplicaciones_lib.interfaces;
 using presentaciones_lib.implementaciones;
 using presentaciones_lib.interfaces;
 
+// QuestPDF (reportes PDF) es gratis para estudiantes con la licencia Community
+QuestPDF.Settings.License = QuestPDF.Infrastructure.LicenseType.Community;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddRazorPages();
