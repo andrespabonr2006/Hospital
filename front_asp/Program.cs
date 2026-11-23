@@ -29,6 +29,9 @@ builder.Services.AddScoped<IMedicamentosPresentacion, MedicamentosPresentacion>(
 builder.Services.AddScoped<IAdministrativosPresentacion, AdministrativosPresentacion>();
 builder.Services.AddScoped<IFacturasPresentacion, FacturasPresentacion>();
 builder.Services.AddScoped<IPagosPresentacion, PagosPresentacion>();
+builder.Services.AddScoped<IRolesPresentacion, RolesPresentacion>();
+builder.Services.AddScoped<IUsuariosPresentacion, UsuariosPresentacion>();
+builder.Services.AddScoped<IPermisosPresentacion, PermisosPresentacion>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSession(options =>
