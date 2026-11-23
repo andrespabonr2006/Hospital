@@ -13,6 +13,7 @@
 
 	<ItemGroup>
 		<ProjectReference Include="..\aplicaciones_lib\aplicaciones_lib.csproj" />
+		<ProjectReference Include="..\presentaciones_lib\presentaciones_lib.csproj" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -20,4 +21,5 @@
 	</ItemGroup>
 
 </Project>
+
 

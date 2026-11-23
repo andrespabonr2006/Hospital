@@ -1,0 +1,19 @@
+﻿@page
+@model ReportesModel
+@{
+    ViewData["Title"] = "Reportes";
+}
+<div class="text-center">
+    <h1 class="display-4">Reportes</h1>
+    <p>Descarga la lista de pacientes en Excel.</p>
+
+    @if (ViewData.ContainsKey("Mensaje"))
+    {
+        <p class="login-error">@ViewData["Mensaje"]</p>
+    }
+
+    <form method="post">
+        <input type="submit" value="Descargar pacientes en Excel" class="btn btn-secondary"
+               asp-page-handler="Excel" />
+    </form>
+</div>

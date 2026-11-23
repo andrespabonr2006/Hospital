@@ -1,4 +1,4 @@
-﻿using aplicaciones_lib.entidades;
+using aplicaciones_lib.entidades;
 
 namespace aplicaciones_lib.interfaces
 {
