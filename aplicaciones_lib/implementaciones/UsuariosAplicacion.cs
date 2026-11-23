@@ -31,6 +31,7 @@ namespace aplicaciones_lib.implementaciones
             var entry = this.conexion!.Entry<Usuarios>(entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
+            Auditoria.Registrar(this.conexion, "Usuarios", "Actualizar", entidad.Id);
             return entidad;
         }
 
@@ -41,6 +42,7 @@ namespace aplicaciones_lib.implementaciones
 
             this.conexion.Usuarios!.Remove(entidad!);
             this.conexion.SaveChanges();
+            Auditoria.Registrar(this.conexion, "Usuarios", "Borrar", entidad.Id);
             return entidad;
         }
 
@@ -76,6 +78,7 @@ namespace aplicaciones_lib.implementaciones
 
             this.conexion.Usuarios!.Add(entidad!);
             this.conexion.SaveChanges();
+            Auditoria.Registrar(this.conexion, "Usuarios", "Insertar", entidad.Id);
             return entidad;
         }
 

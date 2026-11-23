@@ -1,5 +1,6 @@
 ﻿using aplicaciones_lib.entidades;
 using aplicaciones_lib.interfaces;
+using aplicaciones_lib.nucleo;
 using Microsoft.EntityFrameworkCore;
 
 namespace aplicaciones_lib.implementaciones
@@ -26,6 +27,7 @@ namespace aplicaciones_lib.implementaciones
             var entry = this.conexion!.Entry<Examenes>(entidad);
             entry.State = EntityState.Modified;
             this.conexion!.SaveChanges();
+            Auditoria.Registrar(this.conexion, "Examenes", "Actualizar", entidad.Id);
             return entidad;
         }
 
@@ -36,6 +38,7 @@ namespace aplicaciones_lib.implementaciones
 
             this.conexion.Examenes!.Remove(entidad!);
             this.conexion.SaveChanges();
+            Auditoria.Registrar(this.conexion, "Examenes", "Borrar", entidad.Id);
             return entidad;
         }
 
@@ -66,6 +69,7 @@ namespace aplicaciones_lib.implementaciones
 
             this.conexion.Examenes!.Add(entidad!);
             this.conexion.SaveChanges();
+            Auditoria.Registrar(this.conexion, "Examenes", "Insertar", entidad.Id);
             return entidad;
         }
 
