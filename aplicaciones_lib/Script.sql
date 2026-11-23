@@ -185,4 +185,7 @@ INSERT INTO [Medicamentos] ([NombreComercial], [Dosis], [Disponibilidad]) VALUES
 INSERT INTO [Administrativos] ([Nombre], [Cargo], [Telefono], [Hospital]) VALUES ('Ana Torres', 'Facturacion', '3027778899', 1);
 INSERT INTO [Facturas] ([FechaEmision], [Subtotal], [Impuesto], [Medicamento], [Procedimiento], [Administrativo]) VALUES ('20260903', 100000.00, 19000.00, 1, 1, 1);
 INSERT INTO [Pagos] ([Metodo], [Monto], [Fecha], [Factura]) VALUES ('Efectivo', 119000.00, '20260903', 1);
+
+
+ALTER TABLE [Medicos] ADD [Imagen] NVARCHAR(MAX) NULL;
 */
