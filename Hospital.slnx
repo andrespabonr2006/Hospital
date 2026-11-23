@@ -1,5 +1,6 @@
 <Solution>
   <Project Path="aplicaciones_lib/aplicaciones_lib.csproj" />
+  <Project Path="front_asp/front_asp.csproj" Id="152a8371-d411-4461-9e90-737b89320704" />
   <Project Path="presentaciones_lib/presentaciones_lib.csproj" Id="44dde902-7f8d-4644-8775-e16f3211ad78" />
   <Project Path="presentacion_csn/presentacion_csn.csproj" />
   <Project Path="presentacion_mst/presentacion_mst.csproj" />
