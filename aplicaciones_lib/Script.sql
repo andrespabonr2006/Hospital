@@ -186,6 +186,49 @@ INSERT INTO [Administrativos] ([Nombre], [Cargo], [Telefono], [Hospital]) VALUES
 INSERT INTO [Facturas] ([FechaEmision], [Subtotal], [Impuesto], [Medicamento], [Procedimiento], [Administrativo]) VALUES ('20260903', 100000.00, 19000.00, 1, 1, 1);
 INSERT INTO [Pagos] ([Metodo], [Monto], [Fecha], [Factura]) VALUES ('Efectivo', 119000.00, '20260903', 1);
 
-
+-- ===== Actualizacion final (como Horarios) =====
+-- Columna para la foto del medico (se guarda en base64)
 ALTER TABLE [Medicos] ADD [Imagen] NVARCHAR(MAX) NULL;
+
+-- ===== Seguridad: Roles, Usuarios y Permisos =====
+CREATE TABLE [Roles] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Nombre] NVARCHAR(50) NOT NULL,
+    [Descripcion] NVARCHAR(200) NOT NULL,
+);
+
+CREATE TABLE [Usuarios] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Nombre] NVARCHAR(100) NOT NULL,
+    [Correo] NVARCHAR(100) NOT NULL UNIQUE,
+    [Contrasena] NVARCHAR(64) NOT NULL,
+    [Activo] BIT NOT NULL,
+    [Rol] INT NOT NULL REFERENCES [Roles]([Id]),
+);
+
+CREATE TABLE [Permisos] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Ventana] NVARCHAR(50) NOT NULL,
+    [Rol] INT NOT NULL REFERENCES [Roles]([Id]),
+);
+
+-- ===== Auditorias: guarda quien cambio que (una fila por cada Insertar, Actualizar o Borrar) =====
+CREATE TABLE [Auditorias] (
+    [Id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [Entidad] NVARCHAR(50) NOT NULL,
+    [Operacion] NVARCHAR(20) NOT NULL,
+    [Registro] INT NOT NULL,
+    [Fecha] DATETIME NOT NULL,
+);
+
+-- La contrasena se guarda cifrada con SHA256. Este valor es "123" cifrado.
+INSERT INTO [Roles] ([Nombre], [Descripcion]) VALUES ('Administrador', 'Puede usar todas las ventanas');
+INSERT INTO [Roles] ([Nombre], [Descripcion]) VALUES ('Recepcion', 'Solo pacientes, solicitudes, citas e historiales');
+INSERT INTO [Usuarios] ([Nombre], [Correo], [Contrasena], [Activo], [Rol]) VALUES ('Administrador', 'admin', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 1, 1);
+INSERT INTO [Usuarios] ([Nombre], [Correo], [Contrasena], [Activo], [Rol]) VALUES ('Recepcionista', 'recepcion', 'A665A45920422F9D417E4867EFDC4FB8A04A1F3FFF1FA07E998E86F7F7A27AE3', 1, 2);
+INSERT INTO [Permisos] ([Ventana], [Rol]) VALUES ('Pacientes', 2);
+INSERT INTO [Permisos] ([Ventana], [Rol]) VALUES ('Solicitudes', 2);
+INSERT INTO [Permisos] ([Ventana], [Rol]) VALUES ('Citas', 2);
+INSERT INTO [Permisos] ([Ventana], [Rol]) VALUES ('Historiales', 2);
+INSERT INTO [Auditorias] ([Entidad], [Operacion], [Registro], [Fecha]) VALUES ('Script', 'Insertar', 0, GETDATE());
 */

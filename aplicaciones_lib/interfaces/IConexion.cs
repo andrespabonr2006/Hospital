@@ -26,6 +26,10 @@ namespace aplicaciones_lib.interfaces
         DbSet<Administrativos>? Administrativos { get; set; }
         DbSet<Facturas>? Facturas { get; set; }
         DbSet<Pagos>? Pagos { get; set; }
+        DbSet<Roles>? Roles { get; set; }
+        DbSet<Usuarios>? Usuarios { get; set; }
+        DbSet<Permisos>? Permisos { get; set; }
+        DbSet<Auditorias>? Auditorias { get; set; }
 
         EntityEntry<T> Entry<T>(T entity) where T : class;
         int SaveChanges();
