@@ -134,6 +134,7 @@
                     </ul>
                     @if (Seguridad.EstaLogueado(Context))
                     {
+                        <button type="button" class="btn btn-light btn-sm me-2" onclick="window.print()">Imprimir</button>
                         <span class="navbar-text text-white usuario-nav">
                             @Context.Session.GetString("Usuario") (@Context.Session.GetString("Rol"))
                         </span>
