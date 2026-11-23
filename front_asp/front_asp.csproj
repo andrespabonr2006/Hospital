@@ -15,4 +15,8 @@
 		<ProjectReference Include="..\presentaciones_lib\presentaciones_lib.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Properties\PublishProfiles\" />
+	</ItemGroup>
+
 </Project>
