@@ -9,6 +9,15 @@
         <h2>Iniciar sesión</h2>
         <p class="login-sub">Sistema del Hospital</p>
 
+        @if (ViewData.ContainsKey("Error"))
+        {
+            <p class="login-error">@ViewData["Error"]</p>
+        }
+        @if (ViewData.ContainsKey("Mensaje"))
+        {
+            <p class="login-error">No se pudo conectar con la API. ¿Está corriendo servicios_asp?</p>
+        }
+
         <form method="POST">
             <label>Usuario:</label>
             <input asp-for="@Model.Email"
@@ -35,8 +44,8 @@
 else
 {
     <div class="bienvenida">
-        <h1>Bienvenido</h1>
-        <p>Elige una ventana en el menú <b>Ventanas</b> de arriba.</p>
+        <h1>Bienvenido, @Model.NombreUsuario</h1>
+        <p>Tu rol es <b>@Model.NombreRol</b>. Elige una ventana en el menú <b>Ventanas</b> de arriba.</p>
 
         <form method="POST">
             <input type="submit"

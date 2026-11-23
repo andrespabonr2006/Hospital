@@ -30,7 +30,6 @@ body {
     text-align: start;
 }
 
-
 .containers_em {
     height: 250px;
     width: 100%;
@@ -75,7 +74,6 @@ body {
     margin: auto;
     background: white;
 }
-
 
 
 body {
@@ -183,6 +181,12 @@ label {
 .login-caja input.form-control {
     width: 100%;
     margin: 0;
+}
+
+.login-error {
+    color: #b00020;
+    text-align: center;
+    font-weight: bold;
 }
 
 .login-botones {
